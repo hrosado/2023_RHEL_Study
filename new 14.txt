@@ -1,0 +1,57 @@
+Receive the Mission
+Issue a Warning Order
+Make a Tentative Plan
+Initiate Movement
+Conduct Reconnaissance
+Complete the Plan
+Issue the Order
+Supervise, Inspect and Refine
+
+
+development of Courses of Action (COAs)
+
+Define the OE.
+Describe environmental effects on operations.
+Evaluate the threat.
+Determine threat COAs.
+
+Receipt of Mission
+Mission Analysis
+Course of action (COA) Development
+COA Analysis (aka Wargaming)
+COA Comparison
+COA Approval
+Orders Production
+
+
+TLP
+Receive the mission.
+Issue a warning order.
+Make a tentative plan.
+Initiate movement.
+Conduct reconnaissance.
+Complete the plan.
+Issue the complete order.
+Supervise and refine.
+
+
+
+Determine constraints.
+Identify critical facts and develop assumptions.
+Begin composite risk management.
+Develop initial CCIRs and EEFIs.
+Dev initial R&S synchronization tools.
+Develop initial R&S plan.
+Update plan for use of available time.
+Develop initial themes and messages.
+Develop proposed problem statement.
+Develop proposed mission statement.
+Present the mission analysis briefing.
+Develop and issue initial cdr’s intent.
+Dev and issue initial planning guidance.
+Develop COA evaluation criteria.
+Issue a warning order (WARNO).
+
+
+
+

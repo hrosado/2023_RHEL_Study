@@ -1,0 +1,96 @@
+Mission Planning	5
+Inputs	6
+Outputs	6
+Receive the Mission	6
+Issue a Warning Order	6
+Make a Tentative Plan	6
+Initiate Movement	7
+Conduct Reconnaissance	7
+Complete the Plan	7
+Issue the Order	7
+Phases of an Operation	7
+Developing a Risk Mitigation Plan	8
+Inputs	8
+Outputs	8
+Products	8
+Abbreviated Mission Planning	8
+Receive the Mission	8
+Mission Analysis	8
+COA Development and Analysis	8
+SE Operations	9
+Priority Intelligence Requirements (PIRs)	9
+Specific Information Requirements (SIRs)	9
+Intelligence Running Estimate	9
+Intel Update (Quad)	10
+Significant Activities (SIGACTS) Tracking	11
+Event Matrix	11
+Collection Plan & Matrix	11
+Intelligence Summary (INTSUM)	12
+Graphic Intelligence Summary GRINTSUM	13
+Request for Information (RFI) Management	14
+Intelligence Preparation of the Battlefield (IPB)	15
+IPB Step 1: Define the Operational Environment	15
+Identify significant characteristics of the network environment.	16
+IPB Step 2: Describe the Environmental Effects	16
+Analyze the Network Environment	17
+Form conclusions and create assumptions to fill information gaps on general network capabilities.	17
+IPB Step 3: Evaluate the Threat	17
+Predict the adversary's plan based on the known assets and what an adversary may find valuable inside the defended network.	17
+IPB Step 4: Determine Threat Courses of Action	18
+Categorize the types of threats	18
+Categorize the types of attacks	18
+Identify the adversary objective and end state	18
+Develop an Initial Collection Plan	19
+Develop information requirements based on the information environment and expected enemy activity	19
+Develop indicators which describe what you are looking for and what activity should be reported	19
+Conduct General Defensive Operations	19
+Deploy Headquarters Element	20
+Establish a Tactical Operations Center	20
+Build Initial Technical Infrastructure	20
+Provide Defense Assistance	20
+Establish a Defense	21
+Conduct a Defense	21
+Assess a Network – Vulnerability Assessment?	21
+Coordinate Network Support and Operations	21
+Working with Network Owners and Stakeholders	21
+Maintaining Situational Awareness / Common Operating Picture	21
+Tracking Significant Activities	22
+Tracking Requests for Information	22
+Tracking Requests for Intelligence	22
+Secure Mission (HARDEN)	22
+Goals and Output	22
+Enabling Tasks	22
+Survey Mission (ASSESS)	23
+Active Directory Recon	24
+Group Policies	24
+Accounts	24
+Endpoints	24
+Network Recon	25
+File Extractions/ Transfer	25
+Active vs. Passive Scanning Options	26
+Host enumeration, operating systems, and Running Services with Nmap	27
+Recon with msfconsole	29
+Build a network Map	30
+Verify Sensor Status	31
+Vulnerability Scanning	31
+Vulnerability Scanning using Nmap NSE Scripts	31
+Vulnerability Scanning with OpenVAS	31
+Installing OPENVAS on Kali Linux	34
+Installing OPENVAS from Source	35
+Accessing the OpenVAS Web Interface	35
+Key File Locations of an OpenVAS Install	36
+OpenVAS Log Files	36
+OpenVAS Configuration	36
+OpenVAS NVT Updates	38
+Vulnerability Scanning with Metasploit	38
+Host Inspection and Analysis	39
+Hunt Mission (HUNT)	41
+Conduct actions to identify adversary presence within the terrain	41
+Deploy Wazuh Agent on Host Machine	44
+Enable PS-Remoting and run local scripts on remote hosts	45
+Simple wrapper script to loop over remote hosts and run a local script	45
+20Identify and process artifacts discovered in the environment	46
+Identify scope of adversary access to determine extent of intrusion	47
+Conduct actions against adversary presence within the terrain	47
+Incident Response (CLEAR)	47
+Cyber Threat Emulation	47

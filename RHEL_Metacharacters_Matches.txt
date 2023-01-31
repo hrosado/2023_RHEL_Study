@@ -1,0 +1,1592 @@
+Quiz 1: Get Started with Red Hat Enterprise Linux
+1. Which two statements are benefits of open source 
+software for the user? (Choose two.)
+- Code can survive the loss of the original developer or distributor.
+- You can learn from real-world code and develop more effective applications.
+
+2. Which two statements are ways in which Red Hat develops 
+products for the future and interacts with the community? (Choose two.)
+- Sponsor and integrate open source projects into the community-driven Fedora project.
+- Participate in upstream projects.
+
+3. Which two statements describe the benefits of Linux? (Choose two.)
+- Linux is modular and can be configured as a full graphical desktop or a small appliance.
+- Linux includes a powerful and scriptable command-line interface, which enables easier automation and provisioning.
+
+
+Chapter 2: Access the Command Line
+usermod -L
+[Modify user account information.]
+[-L --lock Lock the user account.
+usermod -aG root username
+-a			Append
+-G groups   Supplementary groups given by name or number in a comma-separated
+            list with no whitespace. The user will be removed from any groups to
+            which they currently belong that are not included in groups.
+
+Quiz: Access the Command Line
+1. Which term describes the interpreter that executes commands that are typed as strings?
+- Shell
+2. Which term describes the visual cue that indicates that an interactive shell is waiting for the user to type a command?
+- Prompt
+3. Which term describes the name of a program to run?
+- Command
+4. Which term describes the part of the command line that adjusts the behavior of a command?
+- Option
+5. Which term describes the part of the command line that specifies the target that the command should operate on?
+- Argument
+6. Which term describes the hardware display and keyboard to interact with a system?
+- Physical Console
+7. Which term describes one of multiple logical consoles that can each support an independent login session?
+- Virtual Console
+8. Which term describes an interface that provides a display for output and a keyboard for input to a shell session?
+- Terminal
+
+Chapter 2: Access the Command Line with the Desktop
+pwd - present working directory
+passwd - reset user password
+[user@host ~]$ date
+Sun Feb 27 08:32:42 PM EST 2022
+[user@host ~]$ date +%R
+20:33
+[user@host ~]$ date +%x
+02/27/2022
+Linux does not require file name extensions to classify files by type. The file command scans the compiled header of a file for a 2-digit magic number and displays its type. 
+Text files are recognized because they are not compiled.
+[user@host ~]$ file /etc/passwd
+/etc/passwd: ASCII text
+[user@host ~]$ file /bin/passwd
+/bin/passwd: setuid ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=a467cb9c8fa7306d41b96a820b0178f3a9c66055, for GNU/Linux 3.2.0, stripped
+[user@host ~]$ file /home
+/home: directory
+
+Chapter 2: Execute Commands with the Bash Shell
+whoami - Print the current user id and name. Same as id -un
+semicolon(;) run multiple commands on one line - unconditional command execution
+&& - conditional command execution - basic IF statement
+|| = conditional  
+back slash (\) run a continuous command with line break
+ls /usr
+^usr^tmp - results in the previous ls /usr but /usr is replaced with /tmp
+
+
+firewall-cmd --list-all [needs to be run with priveledge.
+rerun with previous command - sudo !!
+
+Ctrl-r - to search command history
+
+cat - View the Contents of Files
+	- To display the contents of multiple files, add the file names to the cat command as arguments.
+cat /etc/passwd
+cat file1 file2
+
+head | tail - The head and tail commands display the beginning and the end of a file, respectively. By default, these commands display 10 lines of the file, 
+but they both have a [-n number lines] option to specify a different number of lines.
+head -n [<-- replace n with a # provides numbers to each line]
+
+
+[user@host ~]$ head /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+[user@host ~]$ tail -n 3 /etc/passwd
+gdm:x:42:42::/var/lib/gdm:/sbin/nologin
+gnome-initial-setup:x:980:978::/run/gnome-initial-setup/:/sbin/nologin
+dnsmasq:x:979:977:Dnsmasq DHCP and DNS server:/var/lib/dnsmasq:/sbin/nologin
+
+The wc command counts lines, words, and characters in a file. 
+Use the -l, -w, or -c options to display only the given number of lines, words, or characters, respectively.
+[user@host ~]$ wc /etc/passwd
+41   98 2338 /etc/passwd
+[user@host ~]$ wc -l /etc/passwd ; wc -l /etc/group
+41 /etc/passwd
+63 /etc/group
+[user@host ~]$ wc -c /etc/group /etc/hosts
+883 /etc/group
+114 /etc/hosts
+997 total
+
+[user@host ~]$ head -n 3 \
+/usr/share/dict/words \
+/usr/share/dict/linux.words
+==> /usr/share/dict/words <==
+1080
+10-point
+10th
+
+history - The history command displays a list of previously executed commands prefixed with a command number.
+
+
+[user@host ~]$ history
+...output omitted...
+   23  clear
+   24  who
+   25  pwd
+   26  ls /etc
+   27  uptime
+   28  ls -l
+   29  date
+   30  history
+[user@host ~]$ !ls
+ls -l
+total 0
+drwxr-xr-x. 2 student student 6 Feb 27 19:24 Desktop
+...output omitted...
+[user@host ~]$ !26
+ls /etc
+abrt                     hosts                     pulse
+adjtime                  hosts.allow               purple
+aliases                  hosts.deny                qemu-ga
+...output omitted...
+
+Table 2.1. Useful Command-line Editing Shortcuts
+
+Shortcut		Description
+Ctrl+A			Jump to the beginning of the command line.
+Ctrl+E			Jump to the end of the command line.
+Ctrl+U			Clear from the cursor to the beginning of the command line.
+Ctrl+K			Clear from the cursor to the end of the command line.
+Ctrl+LeftArrow	Jump to the beginning of the previous word on the command line.
+Ctrl+RightArrow	Jump to the end of the next word on the command line.
+Ctrl+R			Search the history list of commands for a pattern.
+
+Quiz: Execute Commands with the Bash Shell
+
+1. Which Bash command displays the last five lines of the /var/log/messages file?
+- tail -n 5 /var/log/messages
+2. Which Bash shortcut or command separates commands on the same line?
+- ;
+3. Which Bash command is used to change a user's password?
+- passwd
+4. Which Bash command is used to display the file type?
+- file
+5. Which Bash shortcut or command is used for completing commands, file names, and options?
+- Pressing TAB
+6. Which Bash shortcut or command re-executes a specific command in the history list?
+- !number
+7. Which Bash shortcut or command jumps to the beginning of the command line?
+- Pressing Ctrl+A
+8. Which Bash shortcut or command displays the list of previously executed commands?
+- history
+9. Which Bash shortcut or command copies the last argument of previous commands?
+- Pressing Esc+.
+
+1. Use the date command to display the current time and date.
+[student@workstation ~]$ date
+Mon Feb 28 01:57:25 PM PDT 2022
+
+2. Display the current time in 24-hour clock time (for example, 13:57). Hint: The format string that displays that output is %R.
+[student@workstation ~]$ date +%R
+13:58
+
+3. What kind of file is /home/student/zcat? Is it readable by humans?
+[student@workstation ~]$ file zcat
+zcat: a /usr/bin/sh script, ASCII text executable
+
+4. Use the wc command and Bash shortcuts to display the size of zcat.
+[student@workstation ~]$ wc Esc+.
+[student@workstation ~]$ wc zcat
+  51  299 1988 zcat
+
+5. Display the first 10 lines of the zcat file.
+[student@workstation ~]$ head Esc+.
+[student@workstation ~]$ head zcat
+
+6. Display the last 10 lines of the zcat file.
+[student@workstation ~]$ tail Esc+.
+[student@workstation ~]$ tail zcat
+
+7. Repeat the previous command exactly with four or fewer keystrokes.
+Repeat the previous command exactly with four or fewer keystrokes. 
+Press the UpArrow key once to scroll back through the command history one command and then press Enter (uses two keystrokes). An alternative would be to enter the shortcut command !! and then press Enter (uses four keystrokes) to run the most recent command in the command history. Try both.
+[student@workstation]$ !!
+tail zcat
+
+8. Use the tail command with the -n 20 option to display the last 20 lines in the file. Use command-line editing to accomplish this with a minimal number of keystrokes.
+UpArrow displays the previous command. Ctrl+A moves the cursor to the beginning of the line. Ctrl+RightArrow jumps to the next word. Then, add the -n 20 option and press 
+Enter to execute the command.
+[student@workstation ~]$ tail -n 20 zcat
+
+9. Use the shell history to run the date +%R command again.
+Use the history command to display the list of previous commands and to identify the specific date command to execute. Use !number to run the command, where number is the command number to use from the output of the history command.
+Your shell history might differ from the following example. Determine the command number to use based on the output of your own history command.
+[student@workstation ~]$ history
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pattern - Matches
+* -	Any string of zero or more characters.
+? - Any single character.
+[abc...] Any one character in the enclosed class (between the square brackets).
+[!abc...] Any one character NOT in the enclosed class.
+[^abc...] Any one character not in the enclosed class.
+[[:alpha:]] Any alphabetic character.
+[[:lower:]] Any lowercase character.
+[[:upper:]] Any uppercase character.
+[[:alnum:]] Any alphanumeric character.
+[[:punc:]] Any printable character that is not a space or alphanumeric.
+[[:digit:]] Any single digit from 0 to 9.
+[[:space:]] Any single white space character, which might include tabs, newlines, carriage returns, form feeds, or spaces.
+
+Chapter 3. Manage Files from the Command Line
+tree command
+tree -L 1 /
+
+/boot - holds the linux kernel
+/dev - device folder example vda virtual disk file 
+/etc - extended text configuration folder. Very important.
+/home - normal users
+/root - literal root
+/temp -
+/var/tempt - differences in policies
+/var - data that persists btw boots, spool files for dbs
+/usr -
+/bin - binaries / executables
+/sbin - system binaries / executables
+
+Table 3.1. Significant Red Hat Enterprise Linux Directories
+
+Location	Purpose
+/boot	Files to start the boot process.
+/dev	Special device files that the system uses to access hardware.
+/etc	System-specific configuration files.
+/home	Home directory, where regular users store their data and configuration files.
+/root	Home directory for the administrative superuser, root.
+/run	Runtime data for processes that started since the last boot. This data includes process ID files and lock files. The contents of this directory are re-created on reboot. This directory consolidates the /var/run and /var/lock directories from earlier versions of Red Hat Enterprise Linux.
+/tmp	A world-writable space for temporary files. Files that are not accessed, changed, or modified for 10 days are deleted from this directory automatically. The /﻿var/﻿tmp directory is also a temporary directory, in which files that are not accessed, changed, or modified in more than 30 days are deleted automatically.
+/usr	Installed software, shared libraries, including files, and read-only program data. Significant subdirectories include:
+/usr/bin: User commands
+
+/usr/sbin: System administration commands
+
+/usr/local: Locally customized software
+
+/var	System-specific variable data should persist between boots. Files that dynamically change, such as databases, cache directories, log files, printer-spooled documents, and website content, might be found under /var.
+
+In Red Hat Enterprise Linux 7 and later, four older directories in / have identical contents to their counterparts in /usr:
+
+/bin and /usr/bin
+
+/sbin and /usr/sbin
+
+/lib and /usr/lib
+
+/lib64 and /usr/lib64
+
+Earlier versions of Red Hat Enterprise Linux had distinct directories with different sets of files. In Red Hat Enterprise Linux 7 and later, the directories in / are symbolic links to the matching directories in /usr.
+
+hier - command 
+
+Quiz: Describe Linux File System Hierarchy Concepts
+Choose the correct answers to the following questions:
+
+1.		
+Which directory contains persistent, system-specific configuration data?
+- /etc
+
+
+2.		
+Which directory is the top of the system's file-system hierarchy?
+- /
+
+3.		
+Which directory contains user home directories?
+- /home
+
+
+4.		
+Which directory contains files to boot the system?
+- /boot
+
+5.		
+Which directory contains system files to access hardware?
+- /dev
+
+6.		
+Which directory is the administrative superuser's home directory?
+- /root
+
+7.		
+Which directory contains regular commands and utilities?
+- /usr/bin
+
+8.		
+Which directory contains non-persistent process runtime data?
+- /run
+
+9.		
+Which directory contains installed software programs and libraries?
+- /usr
+
+Chapter 3: Specify Files by Name
+/usr/bin
+. current directory
+.. parent of current directory
+
+Absolute vs Relative paths
+
+pwd = - present working directory
+cd - change directory
+ cd - - shows previous working directory
+ cd ~ - shows currently logged in users home directory
+ -> part of your prompt [student@workstation ~]$  <-- [tilde ~ own home directory]
+ 
+ touch - create an empty file if the file does not exist
+ ls -l - provides a long listing
+ touch command running on the same file will just update the timestamp.
+ 
+ 
+ [user@host ~]$ ls -l
+total 0
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Desktop
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Documents
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Downloads
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Music
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Pictures
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Public
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Templates
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Videos
+[user@host ~]$ ls -la
+total 40
+drwx------. 17 user user 4096 Mar  2 03:07 .
+drwxr-xr-x.  4 root root   35 Feb 10 10:48 ..
+drwxr-xr-x.  4 user user   27 Mar  2 03:01 .ansible
+-rw-------.  1 user user  444 Mar  2 04:32 .bash_history
+-rw-r--r--.  1 user user   18 Aug  9  2021 .bash_logout
+-rw-r--r--.  1 user user  141 Aug  9  2021 .bash_profile
+-rw-r--r--.  1 user user  492 Aug  9  2021 .bashrc
+drwxr-xr-x.  9 user user 4096 Mar  2 02:45 .cache
+drwxr-xr-x.  9 user user 4096 Mar  2 04:32 .config
+drwxr-xr-x.  2 user user    6 Mar  2 02:45 Desktop
+drwxr-xr-x.  2 user user    6 Mar  2 02:45 Documents
+...output omitted...
+ 
+ [user@host ~]$ cd /var/log/
+[user@host log]$ ls -l ~
+total 0
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Desktop
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Documents
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Downloads
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Music
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Pictures
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Public
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Templates
+drwxr-xr-x. 2 user user 6 Mar  2 02:45 Videos
+[user@host ~]$
+
+
+The cd command has many options. Some are useful to practice early and use often. The cd - command changes to the previous directory; where the user was previously to the current directory. The following example illustrates this behavior, and alternates between two directories, which is useful when processing a series of similar tasks.
+
+[user@host ~]$ cd Videos
+[user@host Videos]$ pwd
+/home/user/Videos
+[user@host Videos]$ cd /home/user/Documents
+[user@host Documents]$ pwd
+/home/user/Documents
+[user@host Documents]$ cd -
+[user@host Videos]$ pwd
+/home/user/Videos
+[user@host Videos]$ cd -
+[user@host Documents]$ pwd
+/home/user/Documents
+[user@host Documents]$ cd -
+[user@host Videos]$ pwd
+/home/user/Videos
+[user@host Videos]$ cd
+[user@host ~]$
+
+The cd .. command uses the (..) hidden directory to move up one level to the parent directory, without needing to know the exact parent name. The other hidden directory (.) specifies the current directory on commands where the current location is either the source or destination argument, and avoids the need to type the directory's absolute path name.
+
+[user@host Videos]$ pwd
+/home/user/Videos
+[user@host Videos]$ cd .
+[user@host Videos]$ pwd
+/home/user/Videos
+[user@host Videos]$ cd ..
+[user@host ~]$ pwd
+/home/user
+[user@host ~]$ cd ..
+[user@host home]$ pwd
+/home
+[user@host home]$ cd ..
+[user@host /]$ pwd
+/
+[user@host /]$ cd
+[user@host ~]$ pwd
+/home/user
+[user@host ~]$
+
+1. Which command is used to return to the current user's home directory, assuming that the current working directory is /tmp and their home directory is /home/user?
+- cd
+2. Which command displays the absolute path name of the current location?
+- pwd
+
+3. Which command returns you to the working directory before the current working directory?
+- cd -
+4. Which command changes the working directory up two levels from the current location?
+- cd ../..
+5. Which command lists files in the current location, with a long format, and including hidden files?
+- ls -al
+6. Which command creates an empty file called helloworld.py in the user home directory, assuming that your current directory is /home?
+- touch ~/helloworld.py
+7. Which command changes the working directory to the parent of the current location?
+- cd ..
+8. Which command changes the working directory to /tmp if the current working directory is /home/student?
+- cd ../../tmp
+
+
+Chapter 3: Manage Files with Command-line Tools
+ echo $? - shows number of errors run by previous command
+ The mkdir command -p (parent) option creates any missing parent directories for the requested destination. In the following example, the mkdir command creates three ChapterN subdirectories with one command. 
+ The -p option creates the missing Thesis parent directory.
+
+rmdir vs rm
+rm -r - recursive multiple directories
+
+cp - copy
+cp -r - recursive
+mv -v - move
+
+
+ch03s06 [continue]
+Chapter 3: Guided Exercise: Manage Files with Command-line Tools
+
+
+
+Chapter 3: Make Links Between Files
+Processes 	--> process IDs (PIDs)
+Users 		--> user ids (UIDs)
+groups		--> group IDs (GIDs)
+files 		--> index nodes (inodes)
+
+INODE - keeps track about everything of the file - except for the name of the file
+inode are files system specific - XFS - default file system for RHEL
+Example: 512 bytes / file (xfs)
+--> ownership
+--> permissions
+--> date and time stamps
+--> paths to data blocks containing file dat
+xfs info /
+
+Chapter 3: Guided Exercise: Make Links Between Files
+
+cp my_config{,.bak} prior to making changes to config files,
+creates a .bak (backup file).
+
+cp my_config{,.$(date +%F)}
+- creates my_config.2022-06-06 example
+
+Chapter 3: Quiz: Match File Names with Shell Expansions
+1.Which pattern matches only file names that end with "b"?
+- *b
+
+2.Which pattern matches only file names that begin with "b"?
+- b*
+
+3.Which pattern matches only file names where the first character is not "b"?
+- [!b]
+
+4.Which pattern matches all file names that contain a "b"?
+- *b*
+
+5.Which pattern matches only file names that contain a number?
+- *[[:digit:]]*
+
+6.Which pattern matches only file names that begin with an uppercase letter?
+- [[:upper:]]*
+
+7.Which pattern matches only file names with at least three characters?
+- ???*
+
+Chapter 3: Lab: Manage Files from the Command Line
+Create a directory called project_plans in the Documents directory. The Documents directory should be placed in the student user's home directory. Create two empty files in the project_plans directory called season1_project_plan.odf and season2_project_plan.odf. Hint: If the ~/Documents directory does not exist, then use the mkdir command -p option to create it.
+
+[student@serverb ~]$ mkdir -p ~/Documents/project_plans
+[student@serverb ~]$ touch \
+~/Documents/project_plans/{season1,season2}_project_plan.odf
+[student@serverb ~]$ ls -lR Documents/
+Documents/:
+total 0
+drwxr-xr-x. 2 student student 70 Mar  7 03:50 project_plans
+
+Documents/project_plans:
+total 0
+-rw-r--r--. 1 student student 0 Mar  7 03:50 season1_project_plan.odf
+-rw-r--r--. 1 student student 0 Mar  7 03:50 season2_project_plan.odf
+
+Lab: Manage Files from the Command Line
+In this lab, you efficiently create, move, and remove files and directories by using the shell and various file name matching techniques.
+
+Outcomes
+
+Use wildcards to locate and manipulate files.
+
+As the student user on the workstation machine, use the lab command to prepare your system for this exercise.
+
+This command prepares your environment and ensures that all required resources are available.
+
+[student@workstation ~]$ lab start files-review
+Procedure 3.3. Instructions
+
+Use the ssh command to log in to the serverb machine as the student user. The system's configuration supports the use of SSH keys for authentication.
+
+[student@workstation ~]$ ssh student@serverb
+...output omitted...
+Create a directory called project_plans in the Documents directory. The Documents directory should be placed in the student user's home directory. Create two empty files in the project_plans directory called season1_project_plan.odf and season2_project_plan.odf. Hint: If the ~/Documents directory does not exist, then use the mkdir command -p option to create it.
+
+[student@serverb ~]$ mkdir -p ~/Documents/project_plans
+[student@serverb ~]$ touch \
+~/Documents/project_plans/{season1,season2}_project_plan.odf
+[student@serverb ~]$ ls -lR Documents/
+Documents/:
+total 0
+drwxr-xr-x. 2 student student 70 Mar  7 03:50 project_plans
+
+Documents/project_plans:
+total 0
+-rw-r--r--. 1 student student 0 Mar  7 03:50 season1_project_plan.odf
+-rw-r--r--. 1 student student 0 Mar  7 03:50 season2_project_plan.odf
+Create sets of empty practice files to use in this lab. If you do not immediately recognize the intended shell expansion shortcut, then use the solution to learn and practice. Use shell tab completion to locate file path names easily. Create 12 files with names tv_seasonX_episodeY.ogg in the /home/student directory. Replace X with the season number and Y with that season's episode, for two seasons of six episodes each.
+
+[student@serverb ~]$ touch tv_season{1..2}_episode{1..6}.ogg
+[student@serverb ~]$ ls tv*
+tv_season1_episode1.ogg  tv_season1_episode5.ogg  tv_season2_episode3.ogg
+tv_season1_episode2.ogg  tv_season1_episode6.ogg  tv_season2_episode4.ogg
+tv_season1_episode3.ogg  tv_season2_episode1.ogg  tv_season2_episode5.ogg
+tv_season1_episode4.ogg  tv_season2_episode2.ogg  tv_season2_episode6.ogg
+As the author of a successful series of mystery novels, you are editing your next bestseller's chapters for publishing. Create eight files with names mystery_chapterX.odf. Replace X with the numbers 1 through 8.
+
+[student@serverb ~]$ touch mystery_chapter{1..8}.odf
+[student@serverb ~]$ ls mys*
+mystery_chapter1.odf  mystery_chapter4.odf  mystery_chapter7.odf
+mystery_chapter2.odf  mystery_chapter5.odf  mystery_chapter8.odf
+mystery_chapter3.odf  mystery_chapter6.odf
+Use a single command to create two subdirectories called season1 and season2 under the Videos directory to organize the TV episodes. Move the appropriate TV episodes into the season subdirectories. Use only two commands, and specify destinations with relative syntax.
+
+Create two subdirectories called season1 and season2 under the Videos directory by using a single command.
+
+[student@serverb ~]$ mkdir -p Videos/season{1..2}
+[student@serverb ~]$ ls Videos
+season1  season2
+Move the appropriate TV episodes into the season subdirectories by using only two commands.
+
+[student@serverb ~]$ mv tv_season1* Videos/season1
+[student@serverb ~]$ mv tv_season2* Videos/season2
+[student@serverb ~]$ ls -R Videos
+Videos:
+season1  season2
+
+Videos/season1:
+tv_season1_episode1.ogg  tv_season1_episode3.ogg  tv_season1_episode5.ogg
+tv_season1_episode2.ogg  tv_season1_episode4.ogg  tv_season1_episode6.ogg
+
+Videos/season2:
+tv_season2_episode1.ogg  tv_season2_episode3.ogg  tv_season2_episode5.ogg
+tv_season2_episode2.ogg  tv_season2_episode4.ogg  tv_season2_episode6.ogg
+Create a two-level directory hierarchy with a single command to organize the mystery book chapters. Create the my_bestseller subdirectory under the Documents directory, and the chapters subdirectory under the new my_bestseller directory. Create three more subdirectories directly under the my_bestseller directory with a single command. Name these subdirectories editor, changes, and vacation. You do not need to use the mkdir -p command to create parents because the my_bestseller parent directory exists.
+
+Create the my_bestseller directory under the Dcouments directory. Create the chapters directory under the my_bestseller directory.
+
+[student@serverb ~]$ mkdir -p Documents/my_bestseller/chapters
+[student@serverb ~]$ ls -R Documents
+Documents:
+my_bestseller  project_plans
+
+Documents/my_bestseller:
+chapters
+
+Documents/my_bestseller/chapters:
+
+Documents/project_plans:
+season1_project_plan.odf  season2_project_plan.odf
+Create three directories called editor, changes, and vacation, under the my_bestseller directory by using a single command.
+
+[student@serverb ~]$ mkdir Documents/my_bestseller/{editor,changes,vacation}
+[student@serverb ~]$ ls -R Documents
+Documents:
+my_bestseller  project_plans
+
+Documents/my_bestseller:
+changes  chapters  editor  vacation
+
+Documents/my_bestseller/changes:
+
+Documents/my_bestseller/chapters:
+
+Documents/my_bestseller/editor:
+
+Documents/my_bestseller/vacation:
+
+Documents/project_plans:
+season1_project_plan.odf  season2_project_plan.odf
+Change to the chapters directory. Use the tilde (~) home directory shortcut to move all book chapters to the chapters directory, which is now your current directory. Use the simplest syntax to specify the destination directory.
+
+You want to send the first two chapters to the editor for review. Move only those two chapters to the editor directory to avoid modifying them during the review. Starting from the chapters subdirectory, use brace expansion with a range to specify the chapter file names to move and a relative path for the destination directory.
+
+While on vacation, you intend to write chapters 7 and 8. Use a single command to move the files from the chapters directory to the vacation directory. Specify the chapter file names by using brace expansion with a list of strings and without using wildcard characters.
+
+Change to the chapters directory and use the tilde (~) home directory shortcut to move all book chapters to the chapters directory.
+
+[student@serverb ~]$ cd Documents/my_bestseller/chapters
+[student@serverb chapters]$ mv ~/mystery_chapter* .
+[student@serverb chapters]$ ls
+mystery_chapter1.odf  mystery_chapter4.odf  mystery_chapter7.odf
+mystery_chapter2.odf  mystery_chapter5.odf  mystery_chapter8.odf
+mystery_chapter3.odf  mystery_chapter6.odf
+Move the first two chapters to the editor directory. Use brace expansion with a range to specify the chapter file names to move and a relative path for the destination directory.
+
+[student@serverb chapters]$ mv mystery_chapter{1..2}.odf ../editor
+[student@serverb chapters]$ ls
+mystery_chapter3.odf  mystery_chapter5.odf  mystery_chapter7.odf
+mystery_chapter4.odf  mystery_chapter6.odf  mystery_chapter8.odf
+[student@serverb chapters]$ ls ../editor
+mystery_chapter1.odf  mystery_chapter2.odf
+Use a single command to move the chapters 7 and 8 from the chapters directory to the vacation directory. Specify the chapter file names by using brace expansion with a list of strings and without using wildcard characters.
+
+[student@serverb chapters]$ mv mystery_chapter{7,8}.odf ../vacation
+[student@serverb chapters]$ ls
+mystery_chapter3.odf  mystery_chapter5.odf
+mystery_chapter4.odf  mystery_chapter6.odf
+[student@serverb chapters]$ ls ../vacation
+mystery_chapter7.odf  mystery_chapter8.odf
+Change your working directory to ~/Videos/season2, and then copy the first episode of the season to the vacation directory. Use a single cd command to change from your working directory to the ~/Documents/my_bestseller/vacation directory. List its files. Use the previous working directory argument to return to the season2 directory. (This argument succeeds if the last directory change with the cd command used one command rather than several cd commands.) From the season2 directory, copy the episode 2 file into the vacation directory. Use the shortcut again to return to the vacation directory.
+
+Change your working directory to ~/Videos/season2, and then copy the first episode of the season to the vacation directory.
+
+[student@serverb chapters]$ cd ~/Videos/season2
+[student@serverb season2]$ cp *episode1.ogg ~/Documents/my_bestseller/vacation
+Use a single cd command to change from your working directory to the ~/Documents/my_bestseller/vacation directory, list its files, and use the - argument to return to the previous directory. Copy the episode 2 file into the vacation directory. Use the cd command with the - argument to return to the vacation directory.
+
+[student@serverb season2]$ cd ~/Documents/my_bestseller/vacation
+[student@serverb vacation]$ ls
+mystery_chapter7.odf  mystery_chapter8.odf  tv_season2_episode1.ogg
+[student@serverb vacation]$ cd -
+/home/student/Videos/season2
+[student@serverb season2]$ cp *episode2.ogg ~/Documents/my_bestseller/vacation
+[student@serverb season2]$ cd -
+/home/student/Documents/my_bestseller/vacation
+[student@serverb vacation]$ ls
+mystery_chapter7.odf  tv_season2_episode1.ogg
+mystery_chapter8.odf  tv_season2_episode2.ogg
+The authors of chapters 5 and 6 want to experiment with possible changes. Copy both files from the ~/Documents/my_bestseller/chapters directory to the ~/Documents/my_bestseller/changes directory to prevent these changes from modifying original files. Navigate to the ~/Documents/my_bestseller directory. Use square-bracket pattern matching to specify which chapter numbers to match in the filename argument of the cp command.
+
+[student@serverb vacation]$ cd ~/Documents/my_bestseller
+[student@serverb my_bestseller]$ cp chapters/mystery_chapter[56].odf changes
+[student@serverb my_bestseller]$ ls chapters
+mystery_chapter3.odf  mystery_chapter5.odf
+mystery_chapter4.odf  mystery_chapter6.odf
+[student@serverb my_bestseller]$ ls changes
+mystery_chapter5.odf  mystery_chapter6.odf
+Change your current directory to the changes directory and use the date +%F command with command substitution to copy mystery_chapter5.odf to a new file that includes the full date. Use the mystery_chapter5_YYYY-MM-DD.odf name format.
+
+By using command substitution with the date +%s command, make another copy of mystery_chapter5.odf, and append the current time stamp (as the number of seconds since the epoch, 1970-01-01 00:00 UTC) to ensure a unique file name.
+
+[student@serverb my_bestseller]$ cd changes
+[student@serverb changes]$ cp mystery_chapter5.odf \
+mystery_chapter5_$(date +%F).odf
+[student@serverb changes]$ cp mystery_chapter5.odf \
+mystery_chapter5_$(date +%s).odf
+[student@serverb changes]$ ls
+mystery_chapter5_1646644424.odf  mystery_chapter5.odf
+mystery_chapter5_2022-03-07.odf  mystery_chapter6.odf
+After further review, you decide that you do not need the plot changes. Delete the changes directory.
+
+If it is necessary, then navigate to the changes directory and delete all the files within the directory. You cannot delete a directory while it is the current working directory.
+
+Change to the parent directory of the changes directory. Try to delete the empty directory by using the rm command without the -r recursive option. This attempt should fail. Finally, use the rmdir command to delete the empty directory, which succeeds.
+
+When the vacation is over, you no longer need the vacation directory. Delete it by using the rm command with the recursive option.
+
+When finished, return to the student user's home directory.
+
+Delete the changes directory. Change to the parent directory of the changes directory and try to delete the empty directory by using the rm command without the -r recursive option, which should fail. Use the rmdir command to delete the empty directory.
+
+[student@serverb changes]$ rm mystery*
+[student@serverb changes]$ cd ..
+[student@serverb my_bestseller]$ rm changes
+rm: cannot remove 'changes': Is a directory
+[student@serverb my_bestseller]$ rmdir changes
+[student@serverb my_bestseller]$ ls
+chapters  editor  vacation
+Delete the vacation directory by using the rm command with the -r option. Return to the student user's home directory.
+
+[student@serverb my_bestseller]$ rm -r vacation
+[student@serverb my_bestseller]$ ls
+chapters  editor
+[student@serverb my_bestseller]$ cd
+[student@serverb ~]$
+Create a hard link to the ~/Documents/project_plans/season2_project_plan.odf file called ~/Documents/backups/season2_project_plan.odf.back. A hard link protects against accidental deletion of the original file and keeps the backup file updated as you change the original file. Hint: If the ~/Documents/backups directory does not exist, then use the mkdir command to create it.
+
+Create a hard link to the ~/Documents/project_plans/season2_project_plan.odf file called ~/Documents/backups/season2_project_plan.odf.back.
+
+[student@serverb ~]$ mkdir ~/Documents/backups
+[student@serverb ~]$ ln ~/Documents/project_plans/season2_project_plan.odf \
+~/Documents/backups/season2_project_plan.odf.back
+[student@serverb ~]$ ls -lR ~/Documents/
+/home/student/Documents/:
+total 0
+drwxr-xr-x. 2 student student 43 Mar  7 04:18 backups
+drwxr-xr-x. 4 student student 36 Mar  7 04:16 my_bestseller
+drwxr-xr-x. 2 student student 70 Mar  7 03:50 project_plans
+
+/home/student/Documents/backups:
+total 0
+-rw-r--r--. 2 student student 0 Mar  7 03:50 season2_project_plan.odf.back
+
+/home/student/Documents/my_bestseller:
+total 0
+drwxr-xr-x. 2 student student 118 Mar  7 04:07 chapters
+drwxr-xr-x. 2 student student  62 Mar  7 04:06 editor
+
+/home/student/Documents/my_bestseller/chapters:
+total 0
+-rw-r--r--. 1 student student 0 Mar  7 03:56 mystery_chapter3.odf
+-rw-r--r--. 1 student student 0 Mar  7 03:56 mystery_chapter4.odf
+-rw-r--r--. 1 student student 0 Mar  7 03:56 mystery_chapter5.odf
+-rw-r--r--. 1 student student 0 Mar  7 03:56 mystery_chapter6.odf
+
+/home/student/Documents/my_bestseller/editor:
+total 0
+-rw-r--r--. 1 student student 0 Mar  7 03:56 mystery_chapter1.odf
+-rw-r--r--. 1 student student 0 Mar  7 03:56 mystery_chapter2.odf
+
+/home/student/Documents/project_plans:
+total 0
+-rw-r--r--. 1 student student 0 Mar  7 03:50 season1_project_plan.odf
+-rw-r--r--. 2 student student 0 Mar  7 03:50 season2_project_plan.odf
+Notice that the link count is 2 for both season2_project_plan.odf.back and season2_project_plan.odf files.
+
+Return to the workstation system as the student user.
+
+[student@serverb ~]$ exit
+logout
+Connection to serverb closed.
+[student@workstation ~]$
+
+Chapter 4. Get Help in Red Hat Enterprise Linux
+man command. 
+The pages are stored in subdirectories 
+of the /usr/share/man directory.
+
+
+Table 4.1. Common Sections of the Linux Manual
+
+Section	Content type		Description
+1	User commands			Both executable and shell programs.
+2	System calls			Kernel routines invoked from user space.
+3	Library functions		Provided by program libraries.
+4	Special files			Such as device files.
+5	File formats			For many configuration files and structures.
+6	Games and screensavers	Historical section for amusing programs.
+7	Conventions, standards, and miscellaneous	Protocols, file systems.
+8	System administration and privileged commands	Maintenance tasks.
+9	Linux kernel API		Internal kernel calls.
+
+Guided Exercise: Read Manual Pages
+In this exercise, you practice finding relevant information by using man options and arguments.
+
+Outcomes
+
+Use the man Linux manual system and find useful information by searching and browsing.
+
+As the student user on the workstation machine, use the lab command to prepare your system for this exercise.
+
+This command prepares your environment and ensures that all required resources are available.
+
+[student@workstation ~]$ lab start help-manual
+Procedure 4.1. Instructions
+
+On workstation, view the gedit man page. View the options for editing a specific file by using gedit from the command line.
+
+Use one of the options from the gedit man page to open the /home/student/manual file by using gedit with the cursor at the end of the file.
+
+View the gedit man page.
+
+[student@workstation ~]$ man gedit
+GEDIT(1)    General Commands Manual      GEDIT(1)
+NAME
+       gedit - text editor for the GNOME Desktop
+
+SYNOPSIS
+       gedit [OPTION...] [FILE...] [+LINE[:COLUMN]]
+       gedit [OPTION...] -
+...output omitted...
+In the gedit man page, learn the options for editing a specific file from the command line.
+
+OPTIONS
+...output omitted...
+      FILE  Specifies the file to open when gedit starts.
+...output omitted...
+      +LINE  For the first file, go to the line specified by LINE (do not insert a space between the "+" sign and the number). If LINE is missing, go to the last line.
+...output omitted...
+Press q to quit the man page.
+
+Use the gedit + command to open the manual file. The missing line number next to the + option opens a file that is passed as an argument with the cursor at the end of the last line.
+
+[student@workstation ~]$ gedit + manual
+this is the first line
+the quick brown fox just came over to greet the lazy poodle!
+Confirm that the file is opened with the cursor at the end of the last line in the file. Press Ctrl+q to close the application.
+
+Read the su(1) man page.
+
+If you omit the user argument, then the su command assumes that the user is root. If the su command is followed by a single dash (-), then it starts a child login shell. Without the dash, the su command creates a non-login child shell that matches the user's current environment.
+
+[student@workstation ~]$ man 1 su
+SU(1)              User Commands                      SU(1)
+NAME
+    su - run a command with substitute user and group ID
+
+SYNOPSIS
+    su [options] [-] [user [argument...]]
+
+DESCRIPTION
+    su allows to run commands with a substitute user and group ID.
+
+    When called with no user specified, su defaults to running an interactive shell as root.
+...output omitted...
+OPTIONS
+...output omitted...
+       -, -l, --login
+           Start the shell as a login shell with an environment similar to a real login.
+...output omitted...
+NOTE
+Note that comma-separated options on a single line, such as -, -l, and --login, all result in the same behavior.
+
+Press q to quit the man page.
+
+The man command also has its own manual pages. Open the man(1) command manual page.
+
+[student@workstation ~]$ man man
+MAN(1)             Manual pager utils                                 MAN(1)
+
+NAME
+  man - an interface to the on-line reference manuals
+...output omitted...
+DESCRIPTION
+       man is the system's manual pager. Each page argument given to man is
+       normally the name of a program, utility or function. The manual page
+       associated with each of these arguments is then found and displayed.
+       A section, if provided, will direct man to look only in that section
+       of the manual.
+...output omitted...
+Press q to quit the man page.
+
+The /usr/share/man folder contains all man pages. Locate the binary, source, and manual pages for the passwd utility by using the whereis command. Verify that the /﻿usr/share/man folder contains the man pages for the passwd utility.
+
+[student@workstation ~]$ whereis passwd
+passwd: /usr/bin/passwd /etc/passwd /usr/share/man/man1/passwd.1ossl.gz /usr/share/man/man1/passwd.1.gz /usr/share/man/man5/passwd.5.gz
+Use the man -k zip command to list the man page with detailed information about a ZIP archive.
+
+[student@workstation ~]$ man -k zip
+...output omitted...
+zipinfo (1) - list detailed information about a ZIP archive
+zipnote (1)          - write the comments in zipfile to stdout, edit comments and rename files in zipfile
+zipsplit (1)         - split a zipfile into smaller zipfiles
+Use the man -k boot command to list the man page with a list of parameters that can be passed to the kernel at boot time.
+
+[student@workstation ~]$ man -k boot
+binfmt.d (5)         - Configure additional binary formats for executables at boot
+bootparam (7)        - introduction to boot time parameters of the Linux kernel
+bootup (7)           - System bootup process
+...output omitted...
+Use the man -k ext4 command to find the command to tune ext4 file-system parameters.
+
+[student@workstation ~]$ man -k ext4
+...output omitted...
+resize2fs (8)        - ext2/ext3/ext4 file system resizer
+tune2fs (8)          - adjust tunable filesystem parameters on ext2/ext3/ext4 filesystems
+Finish
+
+On the workstation machine, change to the student user home directory and use the lab command to complete this exercise. This step is important to ensure that resources from previous exercises do not impact upcoming exercises.
+
+[student@workstation ~]$ lab finish help-manual
+This concludes the section.
+
+Lab: Get Help in Red Hat Enterprise Linux
+In this lab, you look up information to help you to complete tasks in man pages and GNU Info documents.
+
+Outcomes
+
+Locate relevant information for commands by searching man pages.
+
+Learn new options for the most common documentation commands.
+
+Use appropriate tools to view and print documentation and other non-text formatted files.
+
+As the student user on the workstation machine, use the lab command to prepare your system for this exercise.
+
+This command prepares your environment and ensures that all required resources are available.
+
+[student@workstation ~]$ lab start help-review
+Procedure 4.2. Instructions
+
+On the workstation machine, determine how to prepare a man page for printing. Specifically, find which is the default format or rendering language for printing.
+
+Use the man man command to determine how to prepare a man page for printing.
+
+[student@worksation ~]$ man man
+...output omitted...
+  man -t bash | lpr -Pps
+      Format the manual page for bash into the default troff or groff format
+      and pipe it to the printer named ps. The default output for groff
+      is usually PostScript. man --help should advise as to which processor
+      is bound to the -t option.
+...output omitted...
+Press q to quit the man page.
+
+NOTE
+The man command -t option prepares a man page for printing, using by default PostScript.
+
+Create a PostScript formatted output file of the passwd man page. Call the file passwd.ps and place it in the student user's home directory. Determine the file content format. Inspect the contents of the passwd.ps file by using the less command.
+
+NOTE
+As you need to save the output of the man command to a file, you can use the > symbol, which redirects the standard output to a file.
+
+As an example, the following command lists the home directory's regular file names into a file.
+
+[student@workstation ~]$ ls > /tmp/my-file-names
+This command is taught in more detail in a following chapter.
+
+Use the man -t command to create a formatted file of the passwd man page.
+
+[student@workstation ~]$ man -t passwd > passwd.ps
+[student@workstation ~]$ ls -al
+...output omitted...
+-rw-r--r--. 1 student student 20168 Mar  8 09:02 passwd.ps
+...output omitted...
+Use the file command to determine the file format.
+
+[student@workstation ~]$ file /home/student/passwd.ps
+/home/student/passwd.ps: PostScript document text conforming DSC level 3.0
+Use the less command to view the /home/student/passwd.ps file.
+
+[student@workstation ~]$ less /home/student/passwd.ps
+%!PS-Adobe-3.0
+%%Creator: groff version 1.22.3
+%%CreationDate: Tue Feb 26 11:14:40 2019
+%%DocumentNeededResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Times-Italic
+%%+ font Symbol
+%%DocumentSuppliedResources: procset grops 1.22 3
+...output omitted...
+NOTE
+The output of file states that the file is in PostScript format, and you can confirm it by viewing the file's contents. Notice the header lines of PostScript information. Use q to quit the less command.
+
+By using the man pages, find which commands you can use for viewing and printing PostScript files.
+
+Search in the man pages for information about PostScript files. Use the -k option for this purpose.
+
+[student@workstation ~]# man -k postscript viewer
+enscript (1)         - convert text files to PostScript, HTML, RTF, ANSI, and overstrikes
+eps2eps (1)          - Ghostscript PostScript "distiller"
+evince (1)           - GNOME document viewer
+evince-previewer (1) - show a printing preview of PostScript and PDF documents
+evince-thumbnailer (1) - create png thumbnails from PostScript and PDF documents
+gcm-viewer (1)       - GNOME Color Manager Profile Viewer Tool
+...output omitted...
+NOTE
+Using multiple words with the -k option finds man pages that match any word; those with "postscript" or "viewer" in their descriptions. Notice the evince(1) commands in the output.
+
+Learn how to use the evince(1) viewer in preview mode. Also, determine how to open a document to start on a specific page. Open your PostScript file by using evince three times: first by using the default mode, then with the preview mode option, and finally to start at page 3. Close your document file when you finish.
+
+Use the man evince command to learn how to use the viewer in preview mode.
+
+[student@workstation ~]$ man evince
+...output omitted...
+       -i, --page-index=NUMBER
+              Open the document on the page with the specified page index (this is the  exact page number, not a page label).
+...output omitted...
+       -w, --preview
+              Run evince as a previewer.
+...output omitted...
+Press q to quit the man page.
+
+NOTE
+The -w (or --preview) option opens evince in preview mode. The -i option opens evince at the specified starting page.
+
+Use the evince command to open the /home/student/passwd.ps file.
+
+[student@workstation ~]$ evince /home/student/passwd.ps
+Use the evince -w /home/student/passwd.ps command to open the file in preview mode.
+
+[student@workstation ~]$ evince -w /home/student/passwd.ps
+Use the evince -i 3 /home/student/passwd.ps command to open the file at page 3.
+
+[student@workstation ~]$ evince -i 3 /home/student/passwd.ps
+NOTE
+While the normal evince mode supports full-screen and presentation-style viewing, the evince preview mode is useful for quick browsing and printing. Notice the print icon at the top.
+
+By using the man pages, research lp(1) to determine how to print any document to start on a specific page. Without entering any commands (in the absence of printers), learn the syntax, in one command, to print only pages 2 and 3 of your PostScript file.
+
+Use the man lp command to determine how to print specific pages of a document.
+
+[student@workstation ~]$ man lp
+...output omitted...
+       -P page-list
+            Specifies which pages to print in the document.  The list can contain a list of numbers and ranges (-) separated by commas, e.g., "1,3-5, 16". The page numbers refer to the output pages and not the document's original pages - options like "number-up" can affect the numbering of the pages.
+...output omitted...
+Press q to quit the man page.
+
+NOTE
+From lp(1), you learn that the -P option specifies the page list to print in the document. The lp command spools to the default printer, and sends only the page range to start on 2 and end on 3. Therefore, one valid answer is lp passwd.ps -P 2-3.
+
+Use the Firefox browser to open the system's man page directory (/usr/share/doc) and browse into the man-db package subdirectory. View the provided manuals. After you finish reviewing the man-db manuals, locate and browse to the kexec-tools package subdirectory. View the kexec-kdump-howto.txt file, which describes important system configuration options that are stored in the /etc/sysconfig directory.
+
+Use firefox /usr/share/doc to view system documentation. Browse the man-db subdirectory. Click the manuals to view them.
+
+[student@workstation ~]$ firefox /usr/share/doc
+NOTE
+You can create bookmarks for any frequently used directory. After browsing the man-db directory, click to open and view the text version of the manual, then close it. Click to open the PostScript version. As observed earlier, evince is the system's default viewer for PostScript and PDF documents. When finished, close the evince viewer.
+
+
+In the Firefox browser, locate the kexec-tools package subdirectory and view the kexec-kdump-howto.txt file. This file describes important system configuration options stored in the /etc/sysconfig directory.
+
+Notice how useful a browser is for locating and viewing local system documentation. Close the document and Firefox when finished.
+
+Chapter 5. Create, View, and Edit Text Files
+Standard Input, Standard Output, and Standard Error
+A running program, or process, reads input and writes output. When you run a command from the shell prompt, it normally reads its input from the keyboard and sends its output to the terminal window.
+
+A process uses numbered channels called file descriptors to get input and send output. All processes start with at least three file descriptors. Standard input (channel 0) reads input from the keyboard. Standard output (channel 1) sends normal output to the terminal. Standard error (channel 2) sends error messages to the terminal.
+
+If a program opens separate connections to other files, then it might use higher-numbered file descriptors.
+
+Process I/O channels (file descriptors)
+stdin = 0
+stdout = 1
+stderr = 2
+other files = 3,4,5,6, ...
+
+The next table summarizes the information about the file descriptors:
+
+Table 5.1. Channels (File Descriptors)
+
+Number	Channel name	Description		Default connection	Usage
+0		stdin			Standard input	Keyboard			read only
+1		stdout			Standard output	Terminal			write only
+2		stderr			Standard error	Terminal			write only
+3+		filename		Other files		none				read, write, or both
+
+
+Table 5.2. Output Redirection Operators
+
+Usage			Explanation	Visual aid
+> file			Redirect stdout to overwrite a file.	
+
+>> file			Redirect stdout to append to a file.	
+
+2> file			Redirect stderr to overwrite a file.	
+
+2> /dev/null	Discard stderr error messages by redirecting them to /dev/null.	
+
+> file 2>&1		Redirect stdout and stderr to overwrite the same file.	
+&> file
+
+>> file 2>&1	Redirect stdout and stderr to append to the same file.	
+&>> file
+
+
+IMPORTANT
+The order of redirection operations is important. The following sequence redirects standard output to the output.log file and then redirects standard error messages to the same place as standard output (output.log).
+
+ > output.log 2>&1
+The next sequence does redirection in the opposite order. This sequence redirects standard error messages to the default place for standard output (the terminal window, so no change) and then redirects only standard output to output.log.
+
+ 2>&1 > output.log
+For this reason, some people prefer to use the merging redirection operators:
+
+&> output.log instead of > output.log 2>&1
+
+&>> output.log instead of >> output.log 2>&1 (in Bash 4 / RHEL 6 and later)
+
+However, system administrators and programmers who also use other related shells 
+to bash (known as Bourne-compatible shells) for scripting commands prefer to avoid 
+the newer merging redirection operators, because they are not standardized or 
+implemented in all of those shells and have other limitations.
+
+
+echo -e - [-e] means string supports /n new line and doesnt interpret the full string as a string literal
+ls -ls greeting foo > success 2> failure
+-- greeting file exists, foo does not. Error will be sent to failure file.
+
+top [command] shows the processes that are using the most cpu
+top -b -n -l
+-b	Run in batch mode; don't accept command-line input.
+    Useful for sending output to another command or to a file.
+-n num
+   Update display num times, then exit.
+
+Created a file 'top.$(date +%F)_$(date +%R)' = top.2022-06-07_09\:59
+
+top -b -n 1 > top.$(date +%F)_$(date +%R)
+
+hostnamectl [command] status - shows the properties of the current system.
+
+Example: hostnamectl | tee my_system <--- hostnamectl will be piped into tee (command) then into a my_system file.
+tee [command] rads from standard input and write to standard output.
+
+Example: ip a | tee -a mystem [ append information and not overwrite]
+tee - Redirect output to multiple files, copies standard input to standard output 
+and also to any files given as arguments. 
+This is useful when you want not only to send some data down a pipe, but also to save a copy.
+
+Using stderr - 
+find [command]
+
+find / -size +100M <--- where I want to look for the file and the size
+find / -size +100M 2>/dev/null
+find / -size +50M &> 50MB_plus_files.txt <--- send all the files larger than 50M to the file plus errors
+find / -size +50M &>> 50MB_plus_files.txt <-- no overwrite
+&> = stdout and stderr
+
+
+UUOC - unecessary of CAT command = 
+cat /etc/ssh/sshd_config | less
+less /etc/ssh/sshd_config
+
+more [command] vs less [command]
+The 'less' command is same as 'more' command but include some more features. 
+It automatically adjust with the width and height of the teminal window, 
+while 'more' command cuts the content as the width of the terminal window get shorter.
+
+
+wc - count number of lines
+wc -l /etc/ssh/sshd_config
+results: 132 /etc/ssh/sshd_config
+grep ^[^#] /etc/ssh/sshd_config | wc -l <--- omits all the comments
+results: 5
+
+
+heredoc or a herefile << EOF
+Example: cat > my_file << EOF <-- inputs will be enterred into my_file until EOF is enterred.
+
+cat > against a file
+cat < outputs from file out to the keyboard
+Example:  cat < /etc/ssh/sshd_config
+
+
+1.		
+Which output redirection operator displays output to a terminal and discards all error messages?
+C		
+2> /dev/null
+
+
+2.		
+Which output redirection operator sends output to a file and sends errors to a different file?
+A		
+> file 2> file2
+
+
+3.		
+Which output redirection operator sends 
+both output and errors to a file, creating it or overwriting its contents?
+D		
+&> file
+
+4.		
+Which output redirection operator sends 
+output and errors to the same file and preserves the file content if it exists?
+C		
+>> file 2>&1
+
+
+5.		
+Which output redirection operator discards all messages that are normally sent to the terminal?
+B		
+&> /dev/null
+
+6.		
+Which output redirection operator sends output to both the screen and a file at the same time?
+C		
+| tee file
+
+
+7.		
+Which output redirection operator saves output to a file and discards all error messages?
+D		
+> file 2> /dev/null
+
+
+Chapter 5: Edit Text Files from the Shell Prompt
+i - for insert mode
+save from extended command mode - ESCAPE to COLON : now into extended command
+:w to write
+:w /var/tmp/about.me
+:q - quit
+yy - copy an entire line
+p to paste
+5p repeats the paste five times
+dd - deletes or cuts - can use p after
+x - delete character
+dw - delete word
+cw - changer word
+
+
+
+cw - change word
+yy delete
+d$ ---> delete all to the right
+SHIFT v - highlight and delete
+CTRL V - to highlight 
+x - deletes characters
+
+SHIFT -V the greater than symber > will shift characters to the right.
+SAVE AS - :w ~/ to a new file name.
+SAVE AS - :w ~/ to a new file name.
+:wq
+:wq! for overwrite - must be priviledged.
+:w save to a new file /var/tmp/
+:q - changes saved to new file.
+
+customize VIM for YAML
+vim ~/.vimrc
+autocmd FileType yaml setlocal ai ts=2 sw-2 et nu cuc
+colo deseert
+set nu 
+
+sudo !! (rerun previous command with sudo)
+
+GOTO LINE in VIM 
+Example: :40 COLON and LINENUMBER
+vimtutor
+End of the file - uppercase G
+
+
+The Minimum, Basic Vim Workflow
+Vim has efficient, coordinated keystrokes for advanced editing tasks. Although considered beneficial with practice, the capabilities of Vim can overwhelm new users.
+
+Red Hat recommends to learn the following Vim keys and commands.
+
+The u key undoes the most recent edit.
+
+The x key deletes a single character.
+
+The :w command writes (saves) the file and remains in command mode for more editing.
+
+The :wq command writes (saves) the file and quits Vim.
+
+The :q! command quits Vim, and discards all file changes since the last write.
+
+Learning these commands helps a Vim user to accomplish any editing task.
+
+Rearrange Existing Text
+In Vim, you can yank and put (copy and paste), by using the y and p command characters. 
+Position the cursor on the first character to select, and then enter visual mode. 
+Use the arrow keys to expand the visual selection. When ready, press y to yank the selection into memory. Position the cursor at the new location, and then press p to put the selection at the cursor.
+
+Visual Mode in Vim
+Visual mode is useful to highlight and manipulate text in different lines and columns. 
+You can enter visual modes on Vim by using the following key combinations.
+
+Character mode : v
+
+Line mode : Shift+v
+
+Block mode : Ctrl+v
+
+Character mode highlights sentences in a block of text. The word VISUAL appears at 
+the bottom of the screen. Press v to enter visual character mode. Shift+v enters line mode. 
+VISUAL LINE appears at the bottom of the screen.
+
+Visual block mode is perfect for manipulating data files. Press the Ctrl+v keystroke 
+to enter the visual block from the cursor. VISUAL BLOCK appears at the bottom of the 
+screen. Use the arrow keys to highlight the section to change.
+
+NOTE
+Become competent with the basic Vim workflow first. It takes practice to understand 
+the many Vim capabilities. Get comfortable with the basics, then expand your Vim 
+vocabulary by learning additional Vim keystrokes.
+
+The exercise for this section uses the vimtutor command. This tutorial, from the 
+vim-enhanced, is an excellent way to learn the core Vim functions.
+
+
+Chapter 5: Guided Exercise: Edit Text Files from the Shell Prompt
+
+Chapter 5: Change the Shell Environment
+
+set [command] to list all the shell variables that are currently set.
+set | less
+echo Repeat ${COUNT}x
+Results: Repeat 40x
+
+Another example is the PS1 variable, which controls the appearance of the shell prompt. If you change this value, then it changes the appearance of your shell prompt. Various special character expansions that the prompt supports are listed in the "PROMPTING" section of the bash(1) man page.
+
+[user@host ~]$ PS1="bash\$ "
+bash$ PS1="[\u@\h \W]\$ "
+[user@host ~]$
+
+You can assign any variable that is defined in the shell as an environment variable by marking it for export with the export command.
+
+[user@host ~]$ EDITOR=vim
+[user@host ~]$ export EDITOR
+You can set and export a variable in one step:
+
+[user@host ~]$ export EDITOR=vim
+Another important environment variable is PATH. The PATH variable contains a list of colon-separated directories that contain programs:
+
+[user@host ~]$ echo $PATH
+/home/user/.local/bin:/home/user/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+
+When you run a command such as the ls command, the shell looks for the ls 
+executable file in each of those directories in order, and runs the first matching file that it finds. 
+(On a typical system, this file is /usr/bin/ls.)
+
+You can easily append directories to your PATH variable. For example, perhaps you want to run some executable programs or scripts like regular commands in the /home/user/sbin directory. You can append the /home/user/sbin directory to your PATH for the current session as follows:
+
+[user@host ~]$ export PATH=${PATH}:/home/user/sbin
+To list all the environment variables for a shell, run the env command:
+
+[user@host ~]$ env
+...output omitted...
+LANG=en_US.UTF-8
+HISTCONTROL=ignoredups
+HOSTNAME=host.example.com
+XDG_SESSION_ID=4
+...output omitted...
+Set the Default Text Editor
+The EDITOR environment variable specifies your default text editor for command-line programs. Many programs use the vi or vim editor if it is not specified, and you can override this preference:
+
+[user@host ~]$ export EDITOR=nano
+
+Set Variables Automatically
+When Bash starts, several text files run with shell commands that initialize the shell environment. To set shell or environment variables automatically when your shell starts, you can edit these Bash startup scripts.
+
+The exact scripts that run depend on whether the shell is interactive or non-interactive, and a login or non-login shell. A user directly enters commands into an interactive shell, whereas a non-interactive shell runs in the background without user intervention, such as a script. A login shell is invoked when a user logs in locally via the terminal or remotely via the SSH protocol. A non-login shell is invoked from an existing session, such as opening a terminal from the GNOME GUI.
+
+For interactive login shells, the /etc/profile and ~/.bash_profile files configure the Bash environment. The /etc/profile and ~/.bash_profile files also source the /etc/bashrc and ~/.bashrc files respectively. For interactive non-login shells, only the /etc/bashrc and ~/.bashrc files configure the Bash environment. While the /etc/profile and /etc/bashrc files apply to the whole system, the ~/bash_profile and ~/.bashrc files are user-specific. Non-interactive shells invoke any files that the BASH_ENV variable defines. This variable is not defined by default.
+
+To create a variable that is available to all of your interactive shells, edit the ~/.bashrc file. To apply a variable only once after the user logs in, define it in the ~/.bash_profile file.
+
+For example, to change the default editor when you log in via SSH, you can modify the EDITOR variable in your ~/.bash_profile file:
+
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+export EDITOR=nano
+
+NOTE
+The best way to adjust settings that affect all user accounts is to add a file with a .sh extension that contains the changes to the /etc/profile.d directory. To create the files in the /etc/profile directory, log in as the root user.
+
+Bash Aliases
+Bash aliases are shortcuts to other Bash commands. For example, if you must frequently type a long command, then you can create a shorter alias to invoke it. You use the alias command to create aliases. Consider the following example that creates a hello alias for an echo command.
+
+[user@host ~]$ alias hello='echo "Hello, this is a long string."'
+You can then run the hello command and it invokes the echo command.
+
+[user@host ~]$ hello
+Hello, this is a long string.
+Add aliases to a user's ~/.bashrc file so they are available in any interactive shell.
+
+Unset and Unexport Variables and Aliases
+To unset and unexport a variable, use the unset command:
+
+[user@host ~]$ echo $file1
+/tmp/tmp.z9pXW0HqcC
+[user@host ~]$ unset file1
+[user@host ~]$ echo $file1
+
+[user@host ~]$
+To unexport a variable without unsetting it, use the export -n command:
+
+[user@host ~]$ export -n PS1
+To unset an alias, use the unalias command:
+
+[user@host ~]$ unalias hello
+
+
+From video:
+/etc/profile --> login script for all shells for all users.
+~/.profile   --> login script for all shells (user specific)
+/etc/bashrc  --> login script for the bash shell for all users.
+~/.bashrc	 --> login script for bask (user specific)
+
+show aliases
+alias
+set and unset varibales
+env
+
+PS1 = PROMPT
+SOURCE command to resource the .bashrc 
+
+Chapter 6. Manage Local Users and Groups
+id [command] to show information about the currently logged in user.
+User accounts are of the following main types: the superuser, system users, and regular users.
+id user
+id admin [argument]
+id root
+
+Results:
+[user01@host ~]$ id user02
+uid=1002(user02) gid=1001(user02) groups=1001(user02) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
+ls -l [long listing]
+
+wheel group - Rather than have to dole out individual permissions on a system, 
+you can add users to the wheel group and they can gain access to administrator levels, 
+simply by being in the wheel group. It's typically tied directly into sudo.
+
+su [command] substitute user
+su - 
+
+sudo -u devops whomi <--- run a command as another user
+echo $USER
+sudo -i
+sudo -u devops -i
+
+variable of $USER
+
+% symbol represents a group
+%wheel <--- group
+
+
+Chapter 6: Describe User and Group Concepts
+User accounts are of the following main types: the superuser, system users, and regular users.
+
+The superuser account administers the system. The superuser name is root and the account has a UID of 0. The superuser has full system access.
+
+The system user accounts are used by processes that provide supporting services. These processes, or daemons, usually do not need to run as the superuser. They are assigned non-privileged accounts to secure their files and other resources from each other and from regular users on the system. Users do not interactively log in with a system user account.
+
+Most users have regular user accounts for their day-to-day work. Like system users, regular users have limited access to the system.Use the id command to show information about the currently logged-in user:
+
+[user01@host ~]$ id
+uid=1000(user01) gid=1000(user01) groups=1000(user01) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+To view basic information about another user, pass the username to the id command as an argument:
+
+[user01@host ~]$ id user02
+uid=1002(user02) gid=1001(user02) groups=1001(user02) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+Use the ls -l command to view the owner of a file. Use the ls -ld command to view the owner of a directory, rather than the contents of that directory. In the following output, the third column shows the username.
+
+[user01@host ~]$ ls -l mytextfile.txt
+-rw-rw-r--. 1 user01 user01 0 Feb  5 11:10 mytextfile.txt
+[user01@host]$ ls -ld Documents
+drwxrwxr-x. 2 user01 user01 6 Feb  5 11:10 Documents
+Use the ps command to view process information. The default is to show only processes in the current shell. Use the ps command -a option to view all processes with a terminal. Use the ps command -u option to view the user that is associated with a process. In the following output, the first column shows the username.
+
+[user01@host ~]$ ps -au
+USER     PID %CPU %MEM    VSZ   RSS TTY    STAT START  TIME COMMAND
+root    1690  0.0  0.0 220984  1052 ttyS0  Ss+  22:43  0:00 /sbin/agetty -o -p -- \u --keep-baud 1
+user01  1769  0.0  0.1 377700  6844 tty2   Ssl+ 22:45  0:00 /usr/libexec/gdm-x-session --register-
+user01  1773  1.3  1.3 528948 78356 tty2   Sl+  22:45  0:03 /usr/libexec/Xorg vt2 -displayfd 3 -au
+user01  1800  0.0  0.3 521412 19824 tty2   Sl+  22:45  0:00 /usr/libexec/gnome-session-binary
+user01  3072  0.0  0.0 224152  5756 pts/1  Ss   22:48  0:00 -bash
+user01  3122  0.0  0.0 225556  3652 pts/1  R+   22:49  0:00 ps -au
+The output of the preceding command displays users by name, but internally the operating system uses UIDs to track users. The mapping of usernames to UIDs is defined in databases of account information. By default, systems use the /etc/passwd file to store information about local users.
+
+Each line in the /etc/passwd file contains information about one user. The file is divided into seven colon-separated fields. An example of a line from /etc/passwd follows:
+
+[user01@host ~]$ cat /etc/passwd
+...output omitted...
+user01:x:1000:1000:User One:/home/user01:/bin/bash
+Consider each part of the code block, separated by a colon:
+
+user01 : The username for this user.
+
+x : The user's encrypted password was historically stored here; this is now a placeholder.
+
+1000 : The UID number for this user account.
+
+1000 : The GID number for this user account's primary group. Groups are discussed later in this section.
+
+User One : A brief comment, description, or the real name for this user.
+
+/home/user01 : The user's home directory, and the initial working directory when the login shell starts.
+
+/bin/bash : The default shell program for this user that runs at login. 
+Some accounts use the /﻿sbin/nologin shell to disallow interactive logins with that account.
+
+
+ls -l owner of a file
+ls -ld owner of a directory
+
+ps view process information
+ps -au [a] shows all processes with a terminal. [u] view the user associated with a process
+
+By default, systems use the /etc/passwd file to store information about local users.
+By default, systems use the /etc/group file to store information about local groups.
+
+Each line in the /etc/group file contains information about one group. Each group entry is divided into four colon-separated fields. An example of a line from /etc/group follows:
+
+[user01@host ~]$ cat /etc/group
+...output omitted...
+group01:x:10000:user01,user02,user03
+Consider each part of the code block, separated by a colon:
+
+group01 : Name for this group.
+
+x : Obsolete group password field; this is now a placeholder.
+
+10000 : The GID number for this group (10000).
+
+user01,user02,user03 : A list of users that are members of this group as a secondary group.
+
+The id command can show group membership for a user. In the following example, the user01 user has the user01 group as their primary group (gid). The groups item lists all group memberships for this user, and the user also has the wheel and group01 groups as secondary groups.
+
+[user01@host ~]$ id
+uid=1001(user01) gid=1003(user01) groups=1003(user01),10(wheel),10000(webadmin) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
+
+whoami vs id commands
+su - anyuser <-- the dash / tac means we're starting a login shell for the following user
+sudo framework
+
+sudo -u devops whoami <-- run a command as another user if you have the permissions to do so.
+
+tmux <--- for multiple terminal windows
+
+echo $USER <-- returns who the user is
+
+-l --login

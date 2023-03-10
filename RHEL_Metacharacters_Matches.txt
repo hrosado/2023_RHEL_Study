@@ -17,9 +17,9 @@ products for the future and interacts with the community? (Choose two.)
 Chapter 2: Access the Command Line
 usermod -L
 [Modify user account information.]
-[-L --lock Lock the user account.
+-L --lock Lock the user account.
 usermod -aG root username
--a			Append
+-a	     Append
 -G groups   Supplementary groups given by name or number in a comma-separated
             list with no whitespace. The user will be removed from any groups to
             which they currently belong that are not included in groups.

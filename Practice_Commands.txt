@@ -1,0 +1,32 @@
+
+
+Chapter 6 - Commands
+processes 	-> process IDs 	(PIDs)
+users 		-> user IDs		(UIDs)
+groups 		-> groups IDs	(GIDs)
+files 		-> index nodes	(inodes)
+
+User ID
+Command: id
+root user id=0
+
+Priviledge comes from your user ID not group.
+Whoever has id=0 is the priviledged user 
+(root or admin or other).
+
+user 'ricardo', group named 'ricardo' with
+only one member user 'ricardo'.
+groups = secondary group membership.
+gid = primary group.
+User can be member to other groups like 'groups=???'.
+Supplementary group membership =
+uid=1000(student) gid=1000(student) groups=1000(student), 10(wheel)
+
+Commands: If file already exists will update date timestamp
+touch foo
+ls -l foo
+Shows read, write, execute priviledges to file.
+-rw-r--r--r, 1 student student 
+
+
+

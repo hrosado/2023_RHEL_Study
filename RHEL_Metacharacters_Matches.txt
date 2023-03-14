@@ -61,6 +61,13 @@ Text files are recognized because they are not compiled.
 /home: directory
 
 Chapter 2: Execute Commands with the Bash Shell
+su - substitute user command
+Example: su - hrosado
+Unconditional command execution using the [;]
+Example: date; ls; whoami; uptime
+
+Conditional Command Execution 
+
 whoami - Print the current user id and name. Same as id -un
 semicolon(;) run multiple commands on one line - unconditional command execution
 && - conditional command execution - basic IF statement
@@ -72,6 +79,18 @@ ls /usr
 
 firewall-cmd --list-all [needs to be run with priveledge.
 rerun with previous command - sudo !!
+
+date +%R
+11:11
+
+date +%F
+2022-06-06
+
+file - tells you about the file
+file /etc/passwd
+Output: /etc/passwd: ASCII text
+
+Tab completion - enter example:  ls -l /etc/p [incomplete - but press tab twice to see options]
 
 Ctrl-r - to search command history
 
@@ -100,6 +119,10 @@ operator:x:11:0:operator:/root:/sbin/nologin
 gdm:x:42:42::/var/lib/gdm:/sbin/nologin
 gnome-initial-setup:x:980:978::/run/gnome-initial-setup/:/sbin/nologin
 dnsmasq:x:979:977:Dnsmasq DHCP and DNS server:/var/lib/dnsmasq:/sbin/nologin
+
+ESCAPE DOT
+Example: tail [escape .] will cycle through previous arguments
+
 
 The wc command counts lines, words, and characters in a file. 
 Use the -l, -w, or -c options to display only the given number of lines, words, or characters, respectively.
@@ -212,7 +235,7 @@ tail zcat
 8. Use the tail command with the -n 20 option to display the last 20 lines in the file. Use command-line editing to accomplish this with a minimal number of keystrokes.
 UpArrow displays the previous command. Ctrl+A moves the cursor to the beginning of the line. Ctrl+RightArrow jumps to the next word. Then, add the -n 20 option and press 
 Enter to execute the command.
-[student@workstation ~]$ tail -n 20 zcat
+[student@workstation ~]$ tail -20 zcat
 
 9. Use the shell history to run the date +%R command again.
 Use the history command to display the list of previous commands and to identify the specific date command to execute. Use !number to run the command, where number is the command number to use from the output of the history command.
@@ -276,7 +299,7 @@ Pattern - Matches
 
 Chapter 3. Manage Files from the Command Line
 tree command
-tree -L 1 /
+tree -L 1 / [tree directory view 1 Level down from the root directory]
 
 /boot - holds the linux kernel
 /dev - device folder example vda virtual disk file 
@@ -370,7 +393,11 @@ Chapter 3: Specify Files by Name
 .. parent of current directory
 
 Absolute vs Relative paths
+- Absolute path will always begin with [/]/etc/profile
 
+- relative path will never begin with [/] ../..
+
+[~] - will always represent the currently logged in users home directory
 pwd = - present working directory
 cd - change directory
  cd - - shows previous working directory
@@ -496,6 +523,34 @@ mv -v - move
 
 ch03s06 [continue]
 Chapter 3: Guided Exercise: Manage Files with Command-line Tools
+mkdir - make directory
+echo $?  - evaluates if the previous command was successful (query return code to evaluate if command was successful)
+0 = success
+1 = error
+mkdir dirA/dirB/dirC - can not make all subsiquent directories
+[mkdir -p] - will make the complete path
+mkdir -p dirA/dirB/dirC 
+
+tree -F dirA
+
+mkdir -pv dirA/dirB/dirC/dirD/dirE  [-v for verbose]
+
+Deleting directories
+rmdir
+
+rm -rv dirA [ r for recursive v for verbose  ]
+
+Special children files ., and .. in all directories
+[.] - current directory (special files)
+[..] - parent directory (special files)
+
+cp command to copy directory
+cp dirA/ foo - results in error because not recursive
+
+ls -la [-la long listing with -a all, shows hidden files like [.] and [..] files]
+
+mv - move directory OR RENAME
+mv -v foo helloworld
 
 
 
